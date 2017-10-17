@@ -34,6 +34,12 @@ var products = [
         title: 'Dark Souls 3 Video Game',
         description: 'I died!',
         price: 50
+    }),
+    new Product({
+        imagePath: 'https://d1r7xvmnymv7kg.cloudfront.net/sites_products/darksouls3/assets/img/DARKSOUL_facebook_mini.jpg',
+        title: 'Dark Souls 3 Video Game',
+        description: 'I died!',
+        price: 60
     })
 ];
 
