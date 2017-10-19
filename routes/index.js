@@ -17,8 +17,10 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/user/signup', function(req, res, next){
-  console.log("you are hitting home");
   res.render('user/signup.hbs', {csrfToken: req.csrfToken()});
 });
 
+router.post('/user/signup', function(req, res, next){
+  res.redirect('/');
+});
 module.exports = router;
