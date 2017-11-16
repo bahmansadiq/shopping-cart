@@ -57,7 +57,7 @@ function isLoggedIn(req, res, next){
 
 
 function notLoggedIn(req, res, next){
- if(!req.Authenticated()){
+ if(!req.isAuthenticated()){
  	return next();
  }
 
