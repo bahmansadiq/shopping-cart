@@ -20,12 +20,13 @@ passport.use('local.signup', new LocalStrategy({
     req.checkBody('email', 'Invalid email').notEmpty().isEmail();
     req.checkBody('password', 'Invalid password').notEmpty().isLength({min:4});
     var errors = req.validationErrors();
+    console.log(errors);
     if (errors) {
         var messages = [];
         errors.forEach(function(error) {
            messages.push(error.msg);
         });
-        return done(null, false, req.flash('error', messages));
+        return done(null, false, req.flash('error', "messages"));
     }
     User.findOne({'email': email}, function (err, user) {
         if (err) {
