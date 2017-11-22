@@ -26,7 +26,7 @@ passport.use('local.signup', new LocalStrategy({
         errors.forEach(function(error) {
            messages.push(error.msg);
         });
-        return done(null, false, req.flash('error', "messages"));
+        return done(null, false, req.flash('error', messages));
     }
     User.findOne({'email': email}, function (err, user) {
         if (err) {
@@ -38,6 +38,7 @@ passport.use('local.signup', new LocalStrategy({
         var newUser = new User();
         newUser.email = email;
         newUser.password = newUser.encryptPassword(password);
+        console.log(newUser);
         newUser.save(function(err, result) {
            if (err) {
                return done(err);
