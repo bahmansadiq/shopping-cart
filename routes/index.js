@@ -45,5 +45,5 @@ router.get('/checkout', function(req, res, next){
       }
       var cart=  new Cart(req.session.cart);
       res.render('shop/checkout', {total: cart.totalPrice});
-}
+});
 module.exports = router;
