@@ -17,7 +17,7 @@ $form.submit(function(event){
 function stripeResponseHandler(status, response) {
 
   // Grab the form:
-  var $form = $('#payment-form');
+  var $form = $('#checkout-form');
 
   if (response.error) { // Problem!
 
