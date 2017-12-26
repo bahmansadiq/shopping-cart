@@ -5,13 +5,14 @@ var Product = require('../models/product');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
+  var successMsg = req.flash('success')[0];
     Product.find(function (err, docs) {
         var productChunks = [];
         var chunkSize = 3;
         for (var i = 0; i < docs.length; i += chunkSize) {
             productChunks.push(docs.slice(i, i + chunkSize));
         }
-        res.render('shop/index', {title: 'Shopping Cart', products: productChunks});
+        res.render('shop/index', {title: 'Shopping Cart', products: productChunks, successMsg: successMsg, noMessages: !successMsg});
     });
 });
 
@@ -45,7 +46,7 @@ router.get('/checkout', function(req, res, next){
       }
       var cart=  new Cart(req.session.cart);
       var errMsg = req.flash('error')[0];
-      res.render('shop/checkout', {total: cart.totalPrice});
+      res.render('shop/checkout', {total: cart.totalPrice, errMsg: errMsg, noError: !errMsg});
 });
 
 router.post('/checkout', function(req, res, next){
@@ -62,8 +63,8 @@ router.post('/checkout', function(req, res, next){
 
   // Token is created using Checkout or Elements!
   // Get the payment token ID submitted by the form:
-  var token = request.body.stripeToken; // Using Express
-
+ // Using Express
+ var token = req.body.stripeToken; 
   // Charge the user's card:
   stripe.charges.create({
     amount: cart.totalPrice * 100,
@@ -78,7 +79,7 @@ router.post('/checkout', function(req, res, next){
 
       req.flash('success', 'Successfully bought the product!');
       req.cart=null;
-      req.redirect('/');
+      res.redirect('/');
 });
 
 });
