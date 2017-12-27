@@ -20,6 +20,7 @@ passport.use('local.signup', new LocalStrategy({
     req.checkBody('email', 'Invalid email').notEmpty().isEmail();
     req.checkBody('password', 'Invalid password').notEmpty().isLength({min:4});
     var errors = req.validationErrors();
+    console.log(errors);
     if (errors) {
         var messages = [];
         errors.forEach(function(error) {
@@ -37,6 +38,7 @@ passport.use('local.signup', new LocalStrategy({
         var newUser = new User();
         newUser.email = email;
         newUser.password = newUser.encryptPassword(password);
+        console.log(newUser);
         newUser.save(function(err, result) {
            if (err) {
                return done(err);
