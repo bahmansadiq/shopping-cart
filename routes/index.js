@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var Cart = require('../models/cart');
 var Product = require('../models/product');
-var Order = require('../models/order');
+var Order =   require('../models/order');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -77,10 +77,21 @@ router.post('/checkout', function(req, res, next){
         req.flash('error', err.message);
         return res.redirect('/checkout');
       }
-      req.flash('success', 'Successfully bought the product!');
-      req.session.cart = null;
-      res.redirect('/');
-});
 
+      //store orders for history and shipping
+      var order = new Order({
+        //passport stores the user inside req.user for us
+        user: req.user,
+        cart: cart,
+        address: req.body.address,
+        name : req.body.name,
+        paymentId : charge.id
+      });
+      order.save(function(err, result){
+        req.flash('success', 'Successfully bought the product!');
+        req.session.cart = null;
+        res.redirect('/');
+      });
+  });
 });
 module.exports = router;
