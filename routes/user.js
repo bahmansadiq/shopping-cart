@@ -14,7 +14,7 @@ router.get('/profile', isLoggedIn, function (req, res, next) {
         }
         var cart;
         orders.forEach(function(order){
-            car = new Cart(order.cart);
+            cart = new Cart(order.cart);
             order.items = cart.generateArray();
         });
         res.render('user/profile', {orders: orders});
