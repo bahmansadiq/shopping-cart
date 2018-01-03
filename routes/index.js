@@ -44,7 +44,6 @@ router.get('/reduce/:id', function(req, res, next){
 
 router.get('/remove/:id', function(req, res, next){
   var productId = req.params.id;
-   console.log("################################@@"+ productId);
   var cart = new Cart(req.session.cart ? req.session.cart : {});
   cart.removeItem(productId);
   req.session.cart=cart;
